@@ -5,4 +5,4 @@
 3. Custom Network Manager
 4. variable syncing
 5. client-server callback (cmd..., RPC..., Target...)
-6. 
+6. player transform sync and network spawn point..
