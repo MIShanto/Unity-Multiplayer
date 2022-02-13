@@ -6,3 +6,4 @@
 4. variable syncing
 5. client-server callback (cmd..., RPC..., Target...)
 6. player transform sync and network spawn point..
+7. player movement on server side
