@@ -16,4 +16,4 @@
 2. player spawn and sync.
 3. player selection.
 4. Generating action and adding each player to list.
-5. 
+5. player single selection and drag selection added.
