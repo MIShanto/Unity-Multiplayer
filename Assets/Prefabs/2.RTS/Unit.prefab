@@ -265,6 +265,7 @@ MonoBehaviour:
         m_CallState: 2
   unitMovement: {fileID: 2440556808876866928}
   targeter: {fileID: -8411356512046598389}
+  health: {fileID: 6168386107814398059}
 --- !u!195 &4533829301454108449
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -399,6 +400,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   maxHealth: 100
+  currentHealth: 0
 --- !u!114 &6600953584185665036
 MonoBehaviour:
   m_ObjectHideFlags: 0

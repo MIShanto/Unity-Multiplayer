@@ -17,7 +17,18 @@ public class UnitSelectionHandler : MonoBehaviour
     public List<Unit> selectedUnits { get; } = new List<Unit>();
     private void Start()
     {
-        cam = Camera.main;   
+        cam = Camera.main;
+
+        Unit.AuthorityOnPlayerDeSpawn += AuthorityHandleUnitDespawned;
+    }
+
+    private void OnDestroy()
+    {
+        Unit.AuthorityOnPlayerDeSpawn -= AuthorityHandleUnitDespawned;
+    }
+    private void AuthorityHandleUnitDespawned(Unit unit)
+    {
+        selectedUnits.Remove(unit);
     }
 
     private void Update()

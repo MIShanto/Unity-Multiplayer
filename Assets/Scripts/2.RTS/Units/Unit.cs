@@ -12,6 +12,8 @@ public class Unit : NetworkBehaviour
     [SerializeField] UnityEvent onDeSelected;
     [SerializeField] UnitMovement unitMovement;
     [SerializeField] Targeter targeter;
+    [SerializeField] RTSHealth health;
+
 
     public static event Action<Unit> ServerOnPlayerSpawn;
     public static event Action<Unit> ServerOnPlayerDeSpawn;
@@ -33,27 +35,37 @@ public class Unit : NetworkBehaviour
     public override void OnStartServer()
     {
         ServerOnPlayerSpawn?.Invoke(this);
+
+        health.ServerOnDie += ServerHandleDie;
     }
 
     public override void OnStopServer()
     {
         ServerOnPlayerDeSpawn?.Invoke(this);
+
+        health.ServerOnDie -= ServerHandleDie;
+    }
+
+    [Server]
+    void ServerHandleDie()
+    {
+        NetworkServer.Destroy(gameObject);
     }
 
     #endregion
 
     #region client
 
-    public override void OnStartClient()
+    public override void OnStartAuthority()
     {
-        if (!hasAuthority || !isClientOnly) return;
+        if (!isClientOnly) return;
 
         AuthorityOnPlayerSpawn?.Invoke(this);
     }
 
     public override void OnStopClient()
     {
-        if (!hasAuthority || !isClientOnly) return;
+        if (!isClientOnly) return;
 
         AuthorityOnPlayerDeSpawn?.Invoke(this);
     }

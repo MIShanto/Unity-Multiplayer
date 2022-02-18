@@ -34,7 +34,6 @@ public class RTSHealth : NetworkBehaviour
 
         ServerOnDie?.Invoke();
 
-        Debug.LogError(87879878);
     }
 
     #endregion
