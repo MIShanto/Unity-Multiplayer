@@ -17,3 +17,7 @@
 3. player selection.
 4. Generating action and adding each player to list.
 5. player single selection and drag selection added.
+6. bullet
+7. chase enemy and fire
+8. health
+9. 
