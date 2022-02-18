@@ -20,7 +20,7 @@ public class RTSNetworkManager : NetworkManager
 
     public override void OnServerSceneChanged(string sceneName)
     {
-        if (SceneManager.GetActiveScene().name.StartsWith("Scene_Map"))
+        if (SceneManager.GetActiveScene().name.StartsWith("2"))
         {
             GameOverHandler gameOverHandlerInstance = Instantiate(gameOverHandlerPrefab);
 

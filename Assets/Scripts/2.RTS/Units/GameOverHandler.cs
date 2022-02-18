@@ -10,7 +10,7 @@ public class GameOverHandler : NetworkBehaviour
 
     public static event Action<string> ClientOnGameOver;
 
-    private List<UnitBase> bases = new List<UnitBase>();
+    [SerializeField] private List<UnitBase> bases = new List<UnitBase>();
 
     #region Server
 
