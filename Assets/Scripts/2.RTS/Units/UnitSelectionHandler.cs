@@ -43,12 +43,16 @@ public class UnitSelectionHandler : MonoBehaviour
 
     private void StartSelectionArea()
     {
-        foreach (Unit selectedPlayer in selectedUnits)
+        if (!Keyboard.current.leftShiftKey.isPressed)
         {
-            selectedPlayer.DeSelect();
-        }
+            foreach (Unit selectedPlayer in selectedUnits)
+            {
+                selectedPlayer.DeSelect();
+            }
 
-        selectedUnits.Clear();
+            selectedUnits.Clear();
+        }
+        
 
         dragArea.gameObject.SetActive(true);
 
@@ -101,6 +105,8 @@ public class UnitSelectionHandler : MonoBehaviour
         //check for units inside the area
         foreach (Unit unit in player.GetUnitList())
         {
+            if (selectedUnits.Contains(unit)) continue;
+
             //get screen position of units. because they are in world pos.
             Vector3 screenPos = cam.WorldToScreenPoint(unit.transform.position);
 

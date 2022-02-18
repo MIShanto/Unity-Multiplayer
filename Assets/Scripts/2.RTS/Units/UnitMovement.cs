@@ -10,6 +10,8 @@ public class UnitMovement : NetworkBehaviour
     Camera cam;
     
     [SerializeField] NavMeshAgent agent;
+    [SerializeField] Targeter targeter;
+    [SerializeField] float chaseRange;
 
     public override void OnStartAuthority()
     {
@@ -18,13 +20,38 @@ public class UnitMovement : NetworkBehaviour
         cam = Camera.main;
     }
 
-#region server
+    #region server
+
+    [ServerCallback]
+
+    private void Update() // reset path if close to stopping distance..
+    {
+        Targetable target = targeter.GetTarget();
+
+        if (target != null)
+        {
+            if ((target.transform.position - transform.position).sqrMagnitude > chaseRange * chaseRange)
+                agent.SetDestination(target.transform.position);
+            else if (agent.hasPath)
+                agent.ResetPath();
+
+            return;
+        }
+        if (!agent.hasPath) return;
+
+        if (agent.remainingDistance > agent.stoppingDistance) return;
+
+        agent.ResetPath();
+    }
 
     [Command]
     public void CmdUnitMove(Vector3 destinationPos)
     {
+        targeter.ClearTarget();
+
         if (!NavMesh.SamplePosition(destinationPos, out NavMeshHit hit, 1f, NavMesh.AllAreas))
             return;
+
         agent.SetDestination(hit.position);
         
     }
